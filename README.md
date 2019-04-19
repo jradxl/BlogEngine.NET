@@ -1,7 +1,7 @@
 ## Linux/Mono BlogEngine.NET Source Code
 Initial attempt at a Linux/Mono/MonoDevelop alternative.
-Currently version 1003.3.7 which follows BlogEngine 3.3.7
-(I'm using 1000 more so I can track underlying BlogEngine changes!!)
+Currently version 1003.3.7 which follows BlogEngine 3.3.7.
+(I'm using 1000 more so I can track underlying BlogEngine changes!!).
 This repository will always show commit differences to BlogEngine, as I am reapplying changes carefully using meld.
 Main changes here are because Linux is filesystem case sensitive.
 </br>
@@ -32,10 +32,20 @@ We will share everything about themes and how you can create your own theme on [
 </br>
 
 ## What's not working
-Comments as there is something wrong with the Ajax mechanisms
+Comments as there is something wrong with the Ajax mechanisms.
+BlogEngine.Tests, as won't load in MonoDevelop.
 </br>
 
-##My live site is at:-
+## Notes
+##### Packages in BlogEngine.Core upgraded:-
+Microsoft.Web.Xdt 3.0.0
+Newtonsoft.Json 12.0.1
+Nuget.Core 2.14.0
+
+</br>
+
+
+## My live site is at:-
 [jsrsoft.co.uk/blog](https://jsrsoft.co.uk)
 </br>
 
