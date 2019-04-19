@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Serialization;
+    using System.Reflection;
+    using System.Web.Hosting;
     using System.IO;
     using System.Runtime.Serialization.Formatters.Binary;
 
@@ -119,7 +121,7 @@
             {
                 if (!Blog.CurrentInstance.IsPrimary && SubBlogEnabled)
                 {
-                    if (settings.All(xset => xset.BlogId != Blog.CurrentInstance.Id))
+                    if (!settings.Any(xset => xset.BlogId == Blog.CurrentInstance.Id))
                     {
                         var primId = Blog.Blogs.FirstOrDefault(b => b.IsPrimary).BlogId;
 
@@ -153,7 +155,7 @@
 
                 if (!Blog.CurrentInstance.IsPrimary && SubBlogEnabled)
                 {
-                    if (settings.All(xset => xset.BlogId != Blog.CurrentInstance.Id))
+                    if (!settings.Any(xset => xset.BlogId == Blog.CurrentInstance.Id))
                     {
                         List<ExtensionSettings> newSets = GenericHelper<List<ExtensionSettings>>.Copy(
                             settings.Where(setItem => setItem.BlogId == primId || setItem.BlogId == null).ToList());

@@ -36,6 +36,8 @@ namespace BlogEngine.NET.App_Start
 
                 RegisterDiContainer();
 
+//Not For Linux
+/*
                 ScriptManager.ScriptResourceMapping.AddDefinition("jquery",
                     new ScriptResourceDefinition
                     {
@@ -44,6 +46,7 @@ namespace BlogEngine.NET.App_Start
                         CdnPath = "http://ajax.microsoft.com/ajax/jQuery/jquery-2.1.4.min.js",
                         CdnDebugPath = "http://ajax.microsoft.com/ajax/jQuery/jquery-2.1.4.js"
                     });
+*/
 
                 _initializedAlready = true;
             }
@@ -62,13 +65,25 @@ namespace BlogEngine.NET.App_Start
 
         static void RegisterBundles(BundleCollection bundles)
         {
+
+			//Example
+			//bundles.Add(new ScriptBundle("~/bundles/jquery", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js").Include("~/Scripts/jquery-{version}.js"));
+			        
+
             // for anonymous users
             bundles.Add(new StyleBundle("~/Content/Auto/css").Include(
                 "~/Content/Auto/*.css")
             );
-            bundles.Add(new ScriptBundle("~/Scripts/Auto/js").Include(
-                "~/Scripts/Auto/*.js")
-            );
+
+			//bundles.Add(new ScriptBundle("~/Scripts/Auto/js", "https://ajax.aspnetcdn.com/ajax/4.5.2/1/WebForms.js")
+			//	.Include("~/Scripts/Auto/webforms.js")
+			//bundles.Add(new ScriptBundle("~/Scripts/Auto/js")
+			//	.Include("~/Scripts/Auto/webforms.js")
+			//);
+			
+			bundles.Add(new ScriptBundle("~/Scripts/Auto/js").Include(
+				"~/Scripts/Auto/*.js")
+		    );
 
             // for authenticated users
             bundles.Add(new StyleBundle("~/Content/Auto/cssauth").Include(
@@ -79,7 +94,7 @@ namespace BlogEngine.NET.App_Start
             );
 
             // syntax highlighter 
-            var shRoot = "~/scripts/syntaxhighlighter/";
+            var shRoot = "~/Scripts/syntaxhighlighter/";
             bundles.Add(new StyleBundle("~/Content/highlighter").Include(
                 shRoot + "styles/shCore.css",
                 shRoot + "styles/shThemeDefault.css")
@@ -103,8 +118,9 @@ namespace BlogEngine.NET.App_Start
                 .Include("~/Content/star-rating.css")
                 );
 
+			//JSR
             bundles.Add(
-                new ScriptBundle("~/scripts/blogadmin")
+                new ScriptBundle("~/Scripts/blogAdmin")
                 .Include("~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/jquery.form.js")
                 .Include("~/Scripts/jquery.validate.js")
@@ -112,7 +128,8 @@ namespace BlogEngine.NET.App_Start
                 .Include("~/Scripts/toastr.js")
                 .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/moment.js")
-                .Include("~/Scripts/Q.js")
+				//JSR lowercase q.js
+                //.Include("~/Scripts/q.js")
                 .Include("~/Scripts/angular.min.js")
                 .Include("~/Scripts/angular-route.min.js")
                 .Include("~/Scripts/angular-sanitize.min.js") 
@@ -150,18 +167,18 @@ namespace BlogEngine.NET.App_Start
                 );
 
             bundles.Add(
-                new ScriptBundle("~/scripts/wysiwyg")
-                .Include("~/scripts/jquery-{version}.js")
-                .Include("~/scripts/jquery.form.js")
-                .Include("~/scripts/jquery.validate.js")
-                .Include("~/scripts/toastr.js")
-                .Include("~/scripts/Q.js")  
+                new ScriptBundle("~/Scripts/wysiwyg")
+                .Include("~/Scripts/jquery-{version}.js")
+                .Include("~/Scripts/jquery.form.js")
+                .Include("~/Scripts/jquery.validate.js")
+                .Include("~/Scripts/toastr.js")
+                //.Include("~/Scripts/Q.js")  
                 .Include("~/Scripts/angular.min.js")
                 .Include("~/Scripts/angular-route.min.js")
                 .Include("~/Scripts/angular-sanitize.min.js")                
-                .Include("~/scripts/bootstrap.js")
-                .Include("~/scripts/textext.js")
-                .Include("~/scripts/moment.js")
+                .Include("~/Scripts/bootstrap.js")
+                .Include("~/Scripts/textext.js")
+                .Include("~/Scripts/moment.js")
                 .Include("~/admin/app/app.js")
                 .Include("~/admin/app/grid-helpers.js")
                 .Include("~/admin/app/editor/editor-helpers.js")
@@ -174,22 +191,22 @@ namespace BlogEngine.NET.App_Start
 
             if (BlogConfig.DefaultEditor == "~/admin/editors/bootstrap-wysiwyg/editor.cshtml")
             {
-                bundles.GetBundleFor("~/scripts/wysiwyg").Include("~/admin/editors/bootstrap-wysiwyg/jquery.hotkeys.js");
-                bundles.GetBundleFor("~/scripts/wysiwyg").Include("~/admin/editors/bootstrap-wysiwyg/bootstrap-wysiwyg.js");
-                bundles.GetBundleFor("~/scripts/wysiwyg").Include("~/admin/editors/bootstrap-wysiwyg/editor.js");
+                bundles.GetBundleFor("~/Scripts/wysiwyg").Include("~/admin/editors/bootstrap-wysiwyg/jquery.hotkeys.js");
+                bundles.GetBundleFor("~/Scripts/wysiwyg").Include("~/admin/editors/bootstrap-wysiwyg/bootstrap-wysiwyg.js");
+                bundles.GetBundleFor("~/Scripts/wysiwyg").Include("~/admin/editors/bootstrap-wysiwyg/editor.js");
             }
             if (BlogConfig.DefaultEditor == "~/admin/editors/tinymce/editor.cshtml")
             {
                 // tinymce plugings won't load when compressed. added in post/page editors instead.
-                //bundles.GetBundleFor("~/scripts/wysiwyg").Include("~/admin/editors/tinymce/tinymce.min.js");
-                //bundles.GetBundleFor("~/scripts/wysiwyg").Include("~/admin/editors/tinymce/editor.js");
+                //bundles.GetBundleFor("~/Scripts/wysiwyg").Include("~/admin/editors/tinymce/tinymce.min.js");
+                //bundles.GetBundleFor("~/Scripts/wysiwyg").Include("~/admin/editors/tinymce/editor.js");
             }
             else
             {
-                bundles.GetBundleFor("~/scripts/wysiwyg").Include("~/admin/editors/summernote/summernote.js");
+                bundles.GetBundleFor("~/Scripts/wysiwyg").Include("~/admin/editors/summernote/summernote.js");
                 // change language here if needed
-                //bundles.GetBundleFor("~/scripts/wysiwyg").Include("~/admin/editors/summernote/lang/summernote-ru-RU.js");
-                bundles.GetBundleFor("~/scripts/wysiwyg").Include("~/admin/editors/summernote/editor.js");
+                //bundles.GetBundleFor("~/Scripts/wysiwyg").Include("~/admin/editors/summernote/lang/summernote-ru-RU.js");
+                bundles.GetBundleFor("~/Scripts/wysiwyg").Include("~/admin/editors/summernote/editor.js");
             }
         }
 
@@ -242,7 +259,7 @@ namespace BlogEngine.NET.App_Start
         static void AddDefaultIgnorePatterns(IgnoreList ignoreList)
         {
             if (ignoreList == null)
-                throw new ArgumentNullException(nameof(ignoreList));
+                throw new ArgumentNullException("ignoreList");
 
             ignoreList.Ignore("*.intellisense.js");
             ignoreList.Ignore("*-vsdoc.js");

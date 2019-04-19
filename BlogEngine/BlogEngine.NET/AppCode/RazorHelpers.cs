@@ -43,25 +43,25 @@ public static class RazorHelpers
                     }
                     else
                     {
-                        Utils.Log($"Unable to cast the instantiated object as a control: {typeName}");
+                        Utils.Log(string.Format("Unable to cast the instantiated object as a control: {0}", typeName));
                     }
                 }
                 else
                 {
-                    Utils.Log($"Unable to activate control: {typeName}");
+                    Utils.Log(string.Format("Unable to activate control: {0}", typeName));
                 }
             }
             else
             {
-                Utils.Log($"Unable to load control type: {typeName}");
+                Utils.Log(string.Format("Unable to load control type: {0}", typeName));
             }
         }
         catch (Exception ex)
         {
-            Utils.Log($"Unable to load control: {typeName}", ex);
+            Utils.Log(string.Format("Unable to load control: {0}", typeName), ex);
         }
 
-        return HttpUtility.HtmlEncode($"ERROR - UNABLE TO LOAD CONTROL : {typeName}");
+        return HttpUtility.HtmlEncode(string.Format("ERROR - UNABLE TO LOAD CONTROL : {0}", typeName));
     }
 
     /// <summary>
@@ -79,15 +79,15 @@ public static class RazorHelpers
             }
             else
             {
-                Utils.Log($"Page is null when trying to render control: {controlVirtualPath}");
+                Utils.Log(string.Format("Page is null when trying to render control: {0}", controlVirtualPath));
             }
         }
         catch (Exception ex)
         {
-            Utils.Log($"Unable to load control: {controlVirtualPath}", ex);
+            Utils.Log(string.Format("Unable to load control: {0}", controlVirtualPath), ex);
         }
 
-        return HttpUtility.HtmlEncode($"ERROR - UNABLE TO LOAD CONTROL : {controlVirtualPath}");
+        return HttpUtility.HtmlEncode(string.Format("ERROR - UNABLE TO LOAD CONTROL : {0}", controlVirtualPath));
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ public static class RazorHelpers
         {
             if (string.IsNullOrWhiteSpace(control.ID))
             {
-                control.ID = $"control_{Guid.NewGuid()}";
+                control.ID = string.Format("control_{0}", Guid.NewGuid());
             }
             
             if (properties != null && properties.Count() > 0)
@@ -144,10 +144,10 @@ public static class RazorHelpers
         }
         catch (Exception ex)
         {
-            Utils.Log($"Unable to load control: {control.GetType()}", ex);
+            Utils.Log(string.Format("Unable to load control: {0}", control.GetType().ToString()), ex);
         }
 
-        return HttpUtility.HtmlEncode($"ERROR - UNABLE TO LOAD CONTROL : {control.GetType()}");
+        return HttpUtility.HtmlEncode(string.Format("ERROR - UNABLE TO LOAD CONTROL : {0}", control.GetType().ToString()));
     }
 
     public const string PAGE_BODY_MARKER = "-|-|-|-|-|-|- PAGE-BODY -|-|-|-|-|-|-";
@@ -194,7 +194,7 @@ public static class RazorHelpers
         }
         catch (Exception ex)
         {
-            Utils.Log($"RazorHelper, ParseRazor, VirtualPath: {virtualPath}", ex);
+            Utils.Log(string.Format("RazorHelper, ParseRazor, VirtualPath: {0}", virtualPath), ex);
 
             // return the error message since it will usually contain parsing
             // details when the Razor markup/syntax is invalid.  this will help

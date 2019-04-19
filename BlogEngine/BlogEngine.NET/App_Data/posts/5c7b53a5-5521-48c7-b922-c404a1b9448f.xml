@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <post>
   <author>Admin</author>
-  <title>Post two</title>
+  <title>Post Two</title>
   <description>This is a post two. The variables searchTerm and selectCommand are initialized at the top. You're go</description>
   <content>&lt;p&gt;This post is just an example using Post List widget with image in the post body.&lt;/p&gt;
 &lt;p&gt;&lt;img src="/image.axd?picture=/350x150.png" alt="" /&gt;&lt;/p&gt;

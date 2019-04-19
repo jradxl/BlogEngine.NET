@@ -48,7 +48,7 @@
 
                 if (ShowExcerpt)
                 {
-                    var link = $" <a href=\"{post.RelativeLink}\">[{Utils.Translate("more")}]</a>";
+                    var link = string.Format(" <a href=\"{0}\">[{1}]</a>", post.RelativeLink, Utils.Translate("more"));
 
                     if (!string.IsNullOrEmpty(post.Description))
                     {
@@ -59,7 +59,7 @@
                         body = Utils.StripHtml(body);
                         if (body.Length > DescriptionCharacters && DescriptionCharacters > 0)
                         {
-                            body = $"{body.Substring(0, DescriptionCharacters)}...{link}";
+                            body = string.Format("{0}...{1}", body.Substring(0, DescriptionCharacters), link);
                         }
                     }
                 }

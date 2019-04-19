@@ -76,7 +76,7 @@
     }
 
     $scope.importClickOnce = function () {
-        var url = 'http://dotnetblogengine.net/clickonce/blogimporter/blog.importer.application?url=';
+        var url = 'http://blogengine.io/clickonce/blogimporter/blog.importer.application?url=';
         url += SiteVars.AbsoluteWebRoot + '&username=' + UserVars.Name;
         location.href = url;
     }

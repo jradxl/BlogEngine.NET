@@ -35,7 +35,7 @@ namespace BlogEngine.Core
         /// <summary>
         ///     Private member to hold the URI of the syndication generation utility.
         /// </summary>
-        private static readonly Uri GeneratorUri = new Uri("http://dotnetblogengine.net/");
+        private static readonly Uri GeneratorUri = new Uri("http://blogengine.io/");
 
         /// <summary>
         ///     Private member to hold the version of the syndication generation utility.
@@ -84,12 +84,12 @@ namespace BlogEngine.Core
         {
             if (settings == null)
             {
-                throw new ArgumentNullException(nameof(settings));
+                throw new ArgumentNullException("settings");
             }
 
             if (categories == null)
             {
-                throw new ArgumentNullException(nameof(categories));
+                throw new ArgumentNullException("categories");
             }
 
             // ------------------------------------------------------------
@@ -168,7 +168,7 @@ namespace BlogEngine.Core
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(nameof(value));
+                    throw new ArgumentNullException("value");
                 }
                 
                 this.blogSettings = value;
@@ -243,12 +243,12 @@ namespace BlogEngine.Core
         {
             if (stream == null)
             {
-                throw new ArgumentNullException(nameof(stream));
+                throw new ArgumentNullException("stream");
             }
 
             if (publishables == null)
             {
-                throw new ArgumentNullException(nameof(publishables));
+                throw new ArgumentNullException("publishables");
             }
 
             if (!stream.CanWrite)
@@ -845,7 +845,7 @@ namespace BlogEngine.Core
 
             writer.WriteStartElement("link");
             writer.WriteAttributeString("rel", "self");
-            writer.WriteAttributeString("href", $"{Utils.AbsoluteWebRoot}syndication.axd?format=atom");
+            writer.WriteAttributeString("href", string.Format("{0}syndication.axd?format=atom", Utils.AbsoluteWebRoot));
             writer.WriteEndElement();
 
             // writer.WriteStartElement("link");
@@ -1060,7 +1060,7 @@ namespace BlogEngine.Core
             //     url = HttpContext.Current.Request.Url.ToString();
             // }
             writer.WriteElementString("docs", "http://www.rssboard.org/rss-specification");
-            writer.WriteElementString("generator", $"BlogEngine.NET {BlogSettings.Instance.Version()}");
+            writer.WriteElementString("generator", string.Format("BlogEngine.NET {0}", BlogSettings.Instance.Version()));
 
             // writer.WriteRaw("\n<atom:link href=\"" + url + "\" rel=\"self\" type=\"application/rss+xml\" />");
             if (!String.IsNullOrEmpty(this.Settings.Language))

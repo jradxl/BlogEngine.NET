@@ -1,6 +1,7 @@
 ﻿namespace BlogEngine.Core.Web.HttpHandlers
 {
     using System;
+    using System.IO;
     using System.Web;
     using BlogEngine.Core.Providers;
 
@@ -72,16 +73,16 @@
                 OnServing(fileName);
                 try
                 {
-                    fileName = !fileName.StartsWith("/") ? $"/{fileName}" : fileName;
+                    fileName = !fileName.StartsWith("/") ? string.Format("/{0}", fileName) : fileName;
 
                     // prevent directory traversal
                     if (fileName.Contains(".."))
                     {
                         OnBadRequest(fileName);
-                        context.Response.Redirect($"{Utils.AbsoluteWebRoot}error404.aspx");
+                        context.Response.Redirect(string.Format("{0}error404.aspx", Utils.AbsoluteWebRoot));
                     }
 
-                    var file = BlogService.GetFile($"{Blog.CurrentInstance.StorageLocation}files{fileName}");
+                    var file = BlogService.GetFile(string.Format("{0}files{1}", Blog.CurrentInstance.StorageLocation, fileName));
                     if (file != null)
                     {
                         context.Response.Cache.SetCacheability(HttpCacheability.Public);
@@ -92,7 +93,7 @@
                         
                         var index = fileName.LastIndexOf(".") + 1;
                         var extension = fileName.Substring(index).ToUpperInvariant();
-                        context.Response.ContentType = string.Compare(extension, "JPG") == 0 ? "image/jpeg" : $"image/{extension}";
+                        context.Response.ContentType = string.Compare(extension, "JPG") == 0 ? "image/jpeg" : string.Format("image/{0}", extension);
                         context.Response.BinaryWrite(file.FileContents);
 
                         OnServed(fileName);
@@ -100,13 +101,13 @@
                     else
                     {
                         OnBadRequest(fileName);
-                        context.Response.Redirect($"{Utils.AbsoluteWebRoot}error404.aspx");
+                        context.Response.Redirect(string.Format("{0}error404.aspx", Utils.AbsoluteWebRoot));
                     }
                 }
                 catch (Exception ex)
                 {
                     OnBadRequest(ex.Message);
-                    context.Response.Redirect($"{Utils.AbsoluteWebRoot}error404.aspx");
+                    context.Response.Redirect(string.Format("{0}error404.aspx", Utils.AbsoluteWebRoot));
                 }
             }
         }

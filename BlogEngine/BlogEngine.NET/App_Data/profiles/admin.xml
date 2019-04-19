@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <profileData>
   <DisplayName>Administrator</DisplayName>
-  <FirstName>Admin</FirstName>
+  <FirstName>Admin-Firstname</FirstName>
   <MiddleName />
-  <LastName />
+  <LastName>Admin-Lastname</LastName>
   <CityTown />
   <RegionState />
   <Country>dk</Country>

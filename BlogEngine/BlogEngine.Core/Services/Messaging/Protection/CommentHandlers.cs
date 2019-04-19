@@ -6,6 +6,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
 
     using BlogEngine.Core.Web.Extensions;
 
@@ -74,7 +75,7 @@
                 // remove old filter
                 foreach (var par in filters.Parameters)
                 {
-                    log += $":{par.Values[indx]}";
+                    log += string.Format(":{0}", par.Values[indx]);
                     par.DeleteValue(indx);
                 }
 
@@ -91,7 +92,7 @@
             filters.AddValues(f);
             ExtensionManager.SaveSettings("MetaExtension", filters);
 
-            Utils.Log($"{subject} added to {blackWhiteList} list: {value}");
+            Utils.Log(string.Format("{0} added to {1} list: {2}", subject, blackWhiteList, value));
         }
 
         /// <summary>
@@ -538,7 +539,8 @@
                     comment.IsApproved = false;
                     comment.ModeratedBy = filterName;
 
-                    Utils.Log($"Custom filter [{filterName}] - found spam; comment id: {comment.Id}");
+                    Utils.Log(
+                    string.Format("Custom filter [{0}] - found spam; comment id: {1}", filterName, comment.Id));
 
                     UpdateCustomFilter(filterName, false);
                     break;

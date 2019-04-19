@@ -83,7 +83,7 @@ namespace BlogEngine.Core.Packaging
         /// </summary>
         public string PageLink 
         {
-            get { return $"GalleryGetPackages({PageNumber},'{_pkgType}'); return false;"; }
+            get { return string.Format("GalleryGetPackages({0},'{1}'); return false;", PageNumber, _pkgType); }
         }
     }
 }

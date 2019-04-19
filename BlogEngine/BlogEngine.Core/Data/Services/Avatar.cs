@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Security;
 
 namespace BlogEngine.Core.Data.Services
 {
@@ -9,8 +10,8 @@ namespace BlogEngine.Core.Data.Services
     /// </summary>
     public class Avatar
     {
-        private static string _noAvatar = $"{Utils.AbsoluteWebRoot}Content/images/blog/noavatar.jpg";
-        private static string _pingImg = $"{Utils.AbsoluteWebRoot}Content/images/blog/pingback.png";
+        private static string _noAvatar = string.Format("{0}Content/images/blog/noavatar.jpg", Utils.AbsoluteWebRoot);
+        private static string _pingImg = string.Format("{0}Content/images/blog/pingback.png", Utils.AbsoluteWebRoot);
 
         /// <summary>
         /// Get avatar image source
@@ -42,13 +43,13 @@ namespace BlogEngine.Core.Data.Services
                 return src;
 
             // default noavatar if nothing worked
-            return $"{Utils.AbsoluteWebRoot}Content/images/blog/noavatar.jpg";
+            return string.Format("{0}Content/images/blog/noavatar.jpg", Utils.AbsoluteWebRoot);
         }
 
         static string ThemeNoAvatar(string email)
         {
-            var themeAvatar =
-                $"{Utils.ApplicationRelativeWebRoot}Custom/Themes/{BlogSettings.Instance.Theme}/noavatar.jpg";
+            var themeAvatar = string.Format(
+                "{0}Custom/Themes/{1}/noavatar.jpg", Utils.ApplicationRelativeWebRoot, BlogSettings.Instance.Theme);
 
             if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(themeAvatar)))
                 return themeAvatar;
@@ -64,7 +65,7 @@ namespace BlogEngine.Core.Data.Services
             if (hash != null) 
                 hash = hash.ToLowerInvariant();
 
-            var gravatar = $"http://www.gravatar.com/avatar/{hash}.jpg?d=";
+            var gravatar = string.Format("http://www.gravatar.com/avatar/{0}.jpg?d=", hash);
 
             switch (BlogSettings.Instance.Avatar)
             {

@@ -48,9 +48,9 @@ namespace BlogEngine.Core.Packaging
                         if (string.IsNullOrEmpty(jp.IconUrl))
                             jp.IconUrl = DefaultThumbnail("");
 
-                        if (extras != null && extras.Any())
+                        if (extras != null && extras.Count() > 0)
                         {
-                            var extra = extras.FirstOrDefault(e => e.Id.ToLower() == pkg.Id.ToLower() + "." + pkg.Version);
+                            var extra = extras.Where(e => e.Id.ToLower() == pkg.Id.ToLower() + "." + pkg.Version).FirstOrDefault();
 
                             if (extra != null)
                             {
@@ -155,13 +155,13 @@ namespace BlogEngine.Core.Packaging
             switch (packageType)
             {
                 case "Theme":
-                    return $"{Utils.ApplicationRelativeWebRoot}Content/images/blog/Theme.png";
+                    return string.Format("{0}Content/images/blog/Theme.png", Utils.ApplicationRelativeWebRoot);
                 case "Extension":
-                    return $"{Utils.ApplicationRelativeWebRoot}Content/images/blog/ext.png";
+                    return string.Format("{0}Content/images/blog/ext.png", Utils.ApplicationRelativeWebRoot);
                 case "Widget":
-                    return $"{Utils.ApplicationRelativeWebRoot}Content/images/blog/Widget.png";
+                    return string.Format("{0}Content/images/blog/Widget.png", Utils.ApplicationRelativeWebRoot);
             }
-            return $"{Utils.ApplicationRelativeWebRoot}Content/images/blog/pkg.png";
+            return string.Format("{0}Content/images/blog/pkg.png", Utils.ApplicationRelativeWebRoot);
         }
 
         #endregion

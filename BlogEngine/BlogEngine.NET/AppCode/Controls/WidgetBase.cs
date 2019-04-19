@@ -81,7 +81,7 @@ namespace App_Code.Controls
         /// </returns>
         public StringDictionary GetSettings()
         {
-            var cacheId = $"be_widget_{WidgetId}";
+            var cacheId = string.Format("be_widget_{0}", this.WidgetId);
             if (Blog.CurrentInstance.Cache[cacheId] == null)
             {
                 var ws = new WidgetSettings(this.WidgetId.ToString());

@@ -36,12 +36,12 @@
         {
             if (provider == null)
             {
-                throw new ArgumentNullException(nameof(provider));
+                throw new ArgumentNullException("provider");
             }
 
             if (!(provider is BlogProvider))
             {
-                throw new ArgumentException("Invalid provider type", nameof(provider));
+                throw new ArgumentException("Invalid provider type", "provider");
             }
 
             base.Add(provider);

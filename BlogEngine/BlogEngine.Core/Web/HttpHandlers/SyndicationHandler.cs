@@ -330,7 +330,7 @@
 
             if (subTitle != null)
             {
-                return $"{title} - {subTitle}";
+                return string.Format("{0} - {1}", title, subTitle);
             }
 
             return title;

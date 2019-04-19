@@ -54,7 +54,7 @@
         /// </param>
         public override void DeletePost(Post post)
         {
-            var fileName = $"{Folder}posts{Path.DirectorySeparatorChar}{post.Id}.xml";
+            var fileName = string.Format("{0}posts{1}{2}.xml", this.Folder, Path.DirectorySeparatorChar, post.Id);
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);
@@ -94,10 +94,10 @@
         /// </param>
         public override void InsertPost(Post post)
         {
-            if (!Directory.Exists($"{Folder}posts"))
-                Directory.CreateDirectory($"{Folder}posts");
+            if (!Directory.Exists(string.Format("{0}posts", this.Folder)))
+                Directory.CreateDirectory(string.Format("{0}posts", this.Folder));
 
-            var fileName = $"{Folder}posts{Path.DirectorySeparatorChar}{post.Id}.xml";
+            var fileName = string.Format("{0}posts{1}{2}.xml", this.Folder, Path.DirectorySeparatorChar, post.Id);
             var settings = new XmlWriterSettings { Indent = true };
 
             var ms = new MemoryStream();
@@ -215,7 +215,7 @@
         /// </returns>
         public override Post SelectPost(Guid id)
         {
-            var fileName = $"{Folder}posts{Path.DirectorySeparatorChar}{id}.xml";
+            var fileName = string.Format("{0}posts{1}{2}.xml", this.Folder, Path.DirectorySeparatorChar, id);
             var post = new Post();
             var doc = new XmlDocument();
             doc.Load(fileName);

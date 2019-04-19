@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.UI;
 using System.Net.Sockets;
 using System.Collections.Generic;
 using BlogEngine.Core.Data.Services;
@@ -145,7 +147,8 @@ namespace BlogEngine.Core.Web.Scripting
                     if (HtmlOut.Contains("</head>", StringComparison.OrdinalIgnoreCase))
                     {
                         HtmlOut = HtmlOut.Insert(idx,
-                            $"\n<script src=\"{Utils.RelativeWebRoot}res-{resKey.GetHashCode()}.js.axd\" type=\"text/javascript\"></script>");
+                            string.Format("\n<script src=\"{0}res-{1}.js.axd\" type=\"text/javascript\"></script>",
+                            Utils.RelativeWebRoot, resKey.GetHashCode()));
                     }
                 }
             }
@@ -173,7 +176,7 @@ namespace BlogEngine.Core.Web.Scripting
             var relative = match.Groups[1].Value;
             var absolute = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
             return match.Value.Replace(
-                relative, $"{Utils.ApplicationRelativeWebRoot}js.axd?path={HttpUtility.UrlEncode(absolute + relative)}");
+                relative, string.Format("{0}js.axd?path={1}", Utils.ApplicationRelativeWebRoot, HttpUtility.UrlEncode(absolute + relative)));
         }
 
         /// <summary>
@@ -286,6 +289,7 @@ namespace BlogEngine.Core.Web.Scripting
         public override void Write(byte[] buffer, int offset, int count)
         {
             // collect all HTML in local variable
+			//JSR
             var html = Encoding.UTF8.GetString(buffer, offset, count);
             HtmlOut += html;
         }

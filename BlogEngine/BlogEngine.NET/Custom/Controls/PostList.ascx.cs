@@ -178,8 +178,8 @@
             path = path.Contains("?")
                        ? (path.Contains("page=")
                               ? path.Substring(0, path.IndexOf("page="))
-                              : $"{path}&")
-                       : $"{path}?";
+                              : string.Format("{0}&", path))
+                       : string.Format("{0}?", path);
 
             var page = this.GetPageIndex();
             var url = string.Format("{0}page={{0}}", path);

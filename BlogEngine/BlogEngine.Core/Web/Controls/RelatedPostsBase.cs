@@ -91,14 +91,14 @@ namespace BlogEngine.Core.Web.Controls
             var description = Utils.StripHtml(post.Description);
             if (description != null && description.Length > this.DescriptionMaxLength)
             {
-                description = $"{description.Substring(0, DescriptionMaxLength)}...";
+                description = string.Format("{0}...", description.Substring(0, this.DescriptionMaxLength));
             }
 
             if (String.IsNullOrEmpty(description))
             {
                 var content = Utils.StripHtml(post.Content);
                 description = content.Length > this.DescriptionMaxLength
-                    ? $"{content.Substring(0, DescriptionMaxLength)}..."
+                    ? string.Format("{0}...", content.Substring(0, this.DescriptionMaxLength))
                     : content;
             }
             return description;

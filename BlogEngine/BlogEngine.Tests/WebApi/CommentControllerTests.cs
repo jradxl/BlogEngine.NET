@@ -1,6 +1,7 @@
 ﻿using BlogEngine.Core.Data.Models;
 using BlogEngine.Tests.Fakes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace BlogEngine.Tests.WebApi
         public void CommentsControllerGet()
         {
             var results = _ctrl.Get();
-            Assert.IsTrue(results.Items.Any());
+            Assert.IsTrue(results.Items.Count() > 0);
         }
 
         //[TestMethod]

@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BlogEngine.NET</RootNamespace>
     <AssemblyName>BlogEngine.NET</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -41,12 +41,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -72,7 +68,6 @@
     </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
@@ -94,19 +89,15 @@
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -119,6 +110,18 @@
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages" />
+    <Reference Include="System.Web.Mvc" />
+    <Reference Include="ICSharpCode.SharpZipLib" />
+    <Reference Include="Logging">
+      <HintPath>..\packages\Trace.Logging.1.11.691\lib\Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Monads">
+      <HintPath>..\packages\Monads.1.1.5.0\lib\net40\Monads.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\packages\ServiceStack.Text.3.9.67\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -151,7 +154,7 @@
     <Content Include="Content\images\blog\icon-pass.svg" />
     <Content Include="Content\images\blog\icon-user.svg" />
     <Content Include="Account\Logout.cshtml" />
-    <Content Include="Account\Web.Config" />
+    <Content Include="Account\web.config" />
     <Content Include="admin\app\grid-helpers.js" />
     <Content Include="admin\app\content\comments\commentFilters.js" />
     <Content Include="admin\app\editor\editor-helpers.js" />
@@ -265,7 +268,6 @@
     <Content Include="admin\app\settings\controls\pingView.html" />
     <Content Include="admin\app\settings\commentView.html" />
     <Content Include="admin\app\settings\tools\checkView.html" />
-    <Content Include="admin\Web.Config" />
     <Content Include="admin\editors\bootstrap-wysiwyg\editor.cshtml" />
     <Content Include="admin\editors\summernote\editor.cshtml" />
     <Content Include="admin\editors\tinymce\editor.cshtml" />
@@ -662,7 +664,6 @@
     <Content Include="admin\app\editor\editpage.cshtml" />
     <Content Include="admin\app\editor\editpost.cshtml" />
     <Content Include="admin\app\editor\filemanager.cshtml" />
-    <Content Include="admin\app\editor\Web.Config" />
     <Content Include="admin\themes\standard\css\styles.css.map" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
@@ -1625,16 +1626,44 @@
     <Content Include="Custom\Themes\RazorHost\site.master" />
     <Content Include="setup\upgrade\index.cshtml" />
     <Content Include="Scripts\syntaxhighlighter\syntaxhighlighter.version" />
-    <Content Include="setup\Web.config" />
     <Content Include="Scripts\version.json" />
     <Content Include="setup\MySQL\MySQLWeb.Config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <Content Include="Web.sitemap" />
+    <Content Include="admin\web.config" />
+    <Content Include="john1.aspx" />
+    <Content Include="Scripts\Auto\beWebForm.js" />
+    <Content Include="web.config" />
+    <Content Include="setup\web.config" />
+    <Content Include="admin\app\editor\web.config" />
+    <Content Include="Custom\Themes\Standard-2017\CommentForm.ascx" />
+    <Content Include="Custom\Themes\Standard-2017\CommentView.ascx" />
+    <Content Include="Custom\Themes\Standard-2017\PostNavigation.ascx" />
+    <Content Include="Custom\Themes\Standard-2017\PostView.ascx" />
+    <Content Include="Custom\Themes\Standard-2017\RelatedPosts.ascx" />
+    <Content Include="Custom\Themes\Standard-2017\WidgetContainer.ascx" />
+    <Content Include="Custom\Themes\Standard-2017\newsletter.html" />
+    <Content Include="Custom\Themes\Standard-2017\site.master" />
+    <Content Include="Custom\Themes\Standard-2017\theme.png" />
+    <None Include="Custom\Themes\Standard-2017\theme.xml" />
+    <Content Include="Custom\Themes\Standard-2017\src\css\bootstrap.min.css" />
+    <Content Include="Custom\Themes\Standard-2017\src\css\font-awesome.min.css" />
+    <Content Include="Custom\Themes\Standard-2017\src\css\styles.min.css" />
+    <Content Include="Custom\Themes\Standard-2017\src\fonts\FontAwesome.otf" />
+    <Content Include="Custom\Themes\Standard-2017\src\fonts\fontawesome-webfont.eot" />
+    <Content Include="Custom\Themes\Standard-2017\src\fonts\fontawesome-webfont.svg" />
+    <Content Include="Custom\Themes\Standard-2017\src\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Custom\Themes\Standard-2017\src\fonts\fontawesome-webfont.woff" />
+    <None Include="Custom\Themes\Standard-2017\src\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Custom\Themes\Standard-2017\src\img\logo.png" />
+    <Content Include="Custom\Themes\Standard-2017\src\js\bootstrap.min.js" />
+    <Content Include="Custom\Themes\Standard-2017\src\js\custom.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="web.sitemap" />
+    <Content Include="web.debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </Content>
+    <Content Include="web.release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\account.css" />
@@ -1828,9 +1857,6 @@
     <Content Include="Custom\Controls\Defaults\CommentForm.ascx" />
     <Content Include="Custom\Controls\Defaults\PostNavigation.ascx" />
     <Content Include="Custom\Controls\PostList.ascx" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="wlwmanifest.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -2254,6 +2280,15 @@
     <Compile Include="Custom\Controls\PostList.ascx.designer.cs">
       <DependentUpon>PostList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="john1.aspx.cs">
+      <DependentUpon>john1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="john1.aspx.designer.cs">
+      <DependentUpon>john1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlogEngine.Core\BlogEngine.Core.csproj">
@@ -2482,6 +2517,11 @@
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
+    <MonoDevelop>
+      <Properties>
+        <XspParameters Port="8081" Address="127.0.0.1" SslMode="None" SslProtocol="Default" KeyType="None" CertFile="" KeyFile="" PasswordOptions="None" Password="" Verbose="True" />
+      </Properties>
+    </MonoDevelop>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

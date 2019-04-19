@@ -75,13 +75,13 @@
                 response = request.GetResponse();
                 if (response == null)
                 {
-                    Utils.Log($"Could not resolve external entity ({absoluteUri})");
+                    Utils.Log(string.Format("Could not resolve external entity ({0})", absoluteUri));
                     return null;
                 }
             }
             catch (Exception)
             {
-                Utils.Log($"Could not resolve external entity ({absoluteUri})");
+                Utils.Log(string.Format("Could not resolve external entity ({0})", absoluteUri));
                 return null;
             }
             

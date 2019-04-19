@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Web;
 using System.Web.Security;
 
 namespace BlogEngine.Core.Data
@@ -225,7 +226,7 @@ namespace BlogEngine.Core.Data
 
         static Profile GetProfile(string id)
         {
-            if (!String.IsNullOrWhiteSpace(id))
+            if (!Utils.StringIsNullOrWhitespace(id))
             {
                 var pf = AuthorProfile.GetProfile(id);
                 if (pf == null)

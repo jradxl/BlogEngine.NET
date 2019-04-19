@@ -146,7 +146,7 @@ namespace Joel.Net
             this.apiKey = apiKey;
             if (userAgent != null)
             {
-                this.userAgent = $"{userAgent} | Akismet/1.11";
+                this.userAgent = string.Format("{0} | Akismet/1.11", userAgent);
             }
 
             this.blog = blog;
@@ -300,7 +300,7 @@ namespace Joel.Net
             // Initialize Connection
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
-            request.ContentType = $"application/x-www-form-urlencoded; charset={charset}";
+            request.ContentType = string.Format("application/x-www-form-urlencoded; charset={0}", charset);
             request.UserAgent = this.userAgent;
             request.ContentLength = data.Length;
 
@@ -340,7 +340,7 @@ namespace App_Code.Extensions
     /// <summary>
     /// Akismet Filter
     /// </summary>
-    [Extension("Akismet anti-spam comment filter", "1.0", "<a href=\"http://dotnetblogengine.net\">BlogEngine.NET</a>", 0, false)]
+    [Extension("Akismet anti-spam comment filter", "1.0", "<a href=\"http://blogengine.io\">BlogEngine.NET</a>", 0, false)]
     public class AkismetFilter : ICustomFilter
     {
         #region Constants and Fields
@@ -523,7 +523,7 @@ namespace App_Code.Extensions
 
             Site = Settings.GetSingleValue("SiteURL");
             Key = Settings.GetSingleValue("ApiKey");
-            Api = new Akismet(Key, Site, $"BlogEngine.NET {BlogSettings.Instance.Version()}");
+            Api = new Akismet(Key, Site, string.Format("BlogEngine.NET {0}", BlogSettings.Instance.Version()));
 
             return Api.VerifyKey();
         }
@@ -551,12 +551,12 @@ namespace App_Code.Extensions
             if (comment.IsApproved)
             {
                 Utils.Log(
-                    $"Akismet: Reporting NOT spam from \"{comment.Author}\" at \"{comment.IP}\"");
+                    string.Format("Akismet: Reporting NOT spam from \"{0}\" at \"{1}\"", comment.Author, comment.IP));
                 Api.SubmitHam(akismetComment);
             }
             else
             {
-                Utils.Log($"Akismet: Reporting SPAM from \"{comment.Author}\" at \"{comment.IP}\"");
+                Utils.Log(string.Format("Akismet: Reporting SPAM from \"{0}\" at \"{1}\"", comment.Author, comment.IP));
                 Api.SubmitSpam(akismetComment);
             }
         }

@@ -10,6 +10,7 @@
 
     /// <summary>
     /// Based on John Dyer's (http://johndyer.name/) extension.
+    /// http://johndyer.name/data-portability-pack-for-blogengine-net/
     /// </summary>
     public class Apml : IHttpHandler
     {

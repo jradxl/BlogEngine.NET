@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Caching;
 using BlogEngine.Core.Providers;
 using System.Web;
 using System.Web.Hosting;
@@ -628,7 +629,7 @@ namespace BlogEngine.Core
                     return BlogConfig.StorageLocation;
                 }
 
-                return $"{BlogConfig.StorageLocation}{BlogConfig.BlogInstancesFolderName}/{StorageContainerName}/";
+                return string.Format("{0}{1}/{2}/", BlogConfig.StorageLocation, BlogConfig.BlogInstancesFolderName, this.StorageContainerName);
             }
         }
 
@@ -675,7 +676,7 @@ namespace BlogEngine.Core
         {
             get
             {
-                string contextItemKey = $"{Id}-absolutewebroot";
+                string contextItemKey = string.Format("{0}-absolutewebroot", this.Id);
 
                 var context = HttpContext.Current;
                 if (context == null)
@@ -954,7 +955,7 @@ namespace BlogEngine.Core
                 existingBlogStoragePath = HostingEnvironment.MapPath(existingBlog.StorageLocation);
                 if (!Directory.Exists(existingBlogStoragePath))
                 {
-                    throw new Exception($"Storage folder for existing blog instance to copy from does not exist.  Directory not found is: {existingBlogStoragePath}");
+                    throw new Exception(string.Format("Storage folder for existing blog instance to copy from does not exist.  Directory not found is: {0}", existingBlogStoragePath));
                 }
             }
             catch (Exception ex)
@@ -964,7 +965,7 @@ namespace BlogEngine.Core
             }
 
             // Ensure "BlogInstancesFolderName" exists.
-            string blogInstancesFolder = HostingEnvironment.MapPath($"{BlogConfig.StorageLocation}{BlogConfig.BlogInstancesFolderName}");
+            string blogInstancesFolder = HostingEnvironment.MapPath(string.Format("{0}{1}", BlogConfig.StorageLocation, BlogConfig.BlogInstancesFolderName));
             if (!Utils.CreateDirectoryIfNotExists(blogInstancesFolder))
                 return false;
 
@@ -975,7 +976,7 @@ namespace BlogEngine.Core
             {
                 if (Directory.Exists(newBlogStoragePath))
                 {
-                    throw new Exception($"Blog destination folder already exists. {newBlogStoragePath}");
+                    throw new Exception(string.Format("Blog destination folder already exists. {0}", newBlogStoragePath));
                 }
             }
             catch (Exception ex)

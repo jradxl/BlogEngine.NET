@@ -23,7 +23,7 @@
         /// </returns>
         public override StringCollection LoadStopWords()
         {
-            var fileName = $"{Folder}stopwords.txt";
+            var fileName = string.Format("{0}stopwords.txt", this.Folder);
             if (!File.Exists(fileName))
             {
                 return new StringCollection();

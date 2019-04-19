@@ -152,11 +152,11 @@ namespace BlogEngine.Core.Data
                     }
                     break;
                 case "Post":
-                    var delPost = Post.DeletedPosts.FirstOrDefault(p => p.Id == id);
+                    var delPost = Post.DeletedPosts.Where(p => p.Id == id).FirstOrDefault();
                     if (delPost != null) delPost.Restore();
                     break;
                 case "Page":
-                    var delPage = Page.DeletedPages.FirstOrDefault(pg => pg.Id == id);
+                    var delPage = Page.DeletedPages.Where(pg => pg.Id == id).FirstOrDefault();
                     if (delPage != null) delPage.Restore();
                     break;
                 default:
@@ -189,11 +189,11 @@ namespace BlogEngine.Core.Data
                     }
                     break;
                 case "Post":
-                    var delPost = Post.DeletedPosts.FirstOrDefault(p => p.Id == id);
+                    var delPost = Post.DeletedPosts.Where(p => p.Id == id).FirstOrDefault();
                     if (delPost != null) delPost.Purge();
                     break;
                 case "Page":
-                    var delPage = Page.DeletedPages.FirstOrDefault(pg => pg.Id == id);
+                    var delPage = Page.DeletedPages.Where(pg => pg.Id == id).FirstOrDefault();
                     if (delPage != null) delPage.Purge();
                     break;
                 default:

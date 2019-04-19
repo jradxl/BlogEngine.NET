@@ -81,11 +81,11 @@ namespace BlogEngine.Core.Data
                     }
                     ExtensionManager.SaveSettings("MetaExtension", CustomFilters);
                 }
-                return new JsonResponse() { Success = true, Message = $"Counters for {filterName} reset"};
+                return new JsonResponse() { Success = true, Message = string.Format("Counters for {0} reset", filterName) };
             }
             catch (Exception ex)
             {
-                Utils.Log($"CustomFilterRepository.ResetCounters: {ex.Message}");
+                Utils.Log(string.Format("CustomFilterRepository.ResetCounters: {0}", ex.Message));
                 return new JsonResponse() { Message = "Error resetting counters" };
             }
         }

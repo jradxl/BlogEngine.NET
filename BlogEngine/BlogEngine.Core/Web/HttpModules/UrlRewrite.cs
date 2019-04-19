@@ -55,7 +55,7 @@
             url = url.Replace(".ASPX.CS", string.Empty);
 
             // skip url rewrite for web api calls
-            if (url.ToLower().StartsWith($"{Utils.ApplicationRelativeWebRoot}api/"))
+            if (url.ToLower().StartsWith(string.Format("{0}api/", Utils.ApplicationRelativeWebRoot)))
             {
                 context.RewritePath(UrlRules.GetUrlWithQueryString(context));
                 return;
@@ -66,8 +66,8 @@
 
             Blog blogInstance = Blog.CurrentInstance;
 
-            // bundled scripts and styles are in the ~/scripts and ~/styles
-            // redirect path from ~/child/scripts/js to ~/scripts/js etc.
+            // bundled scripts and styles are in the ~/Scripts and ~/styles
+            // redirect path from ~/child/Scripts/js to ~/Scripts/js etc.
             if (!blogInstance.IsPrimary)
             {
                 if (url.Contains("/SCRIPTS/") || url.Contains("/STYLES/"))

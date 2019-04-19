@@ -239,10 +239,10 @@ namespace App_Code.Controls
 			}
             var pageFirstUrl = PageFirstUrl();
             var retValue = string.Empty;
-            var link = $"<li class=\"PagerLink\"><a href=\"{PageUrl()}\">{{1}}</a></li>";
-            var linkNewerFirst = $"<li class=\"PagerLink\"><a href=\"{pageFirstUrl}\">{{1}}</a></li>";
+            var link = string.Format("<li class=\"PagerLink\"><a href=\"{0}\">{{1}}</a></li>", PageUrl());
+            var linkNewerFirst = string.Format("<li class=\"PagerLink\"><a href=\"{0}\">{{1}}</a></li>", pageFirstUrl);
             const string LinkCurrent = "<li class=\"PagerLinkCurrent\">{0}</li>";
-            var linkFirst = $"<li class=\"PagerFirstLink\"><a href=\"{pageFirstUrl}\">{{0}}</a></li>";
+            var linkFirst = string.Format("<li class=\"PagerFirstLink\"><a href=\"{0}\">{{0}}</a></li>", pageFirstUrl);
             const string LinkDisabled = "<li class=\"PagerLinkDisabled\">{0}</li>";
 
             var currentPage = PageIndex();
@@ -258,7 +258,7 @@ namespace App_Code.Controls
             }
 
             if (currentPage > pagesTotal)
-                return $"<p>{labels.noPostsMatchedYourCriteria}</p>";
+                return string.Format("<p>{0}</p>", labels.noPostsMatchedYourCriteria);
 
             if (postCnt > 0 && pagesTotal > 1)
             {

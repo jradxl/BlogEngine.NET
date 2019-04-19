@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Configuration;
     using System.Globalization;
     using System.Web;
 
@@ -148,7 +149,7 @@
         /// </summary>
         public static bool IsThemeRazor(string themeName)
         {
-            string path = HostingEnvironment.MapPath($"~/Custom/Themes/{themeName}/site.cshtml");
+            string path = HostingEnvironment.MapPath(string.Format("~/Custom/Themes/{0}/site.cshtml", themeName));
             return File.Exists(path);
         }
 
@@ -1311,7 +1312,7 @@
                     }
                     catch (Exception e)
                     {
-                        Utils.Log($"Error loading blog settings: {e.Message}");
+                        Utils.Log(string.Format("Error loading blog settings: {0}", e.Message));
                     }
                 }
 

@@ -12,6 +12,7 @@ namespace BlogEngine.Core.Providers
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Web.Hosting;
     using System.Xml.Serialization;
 
@@ -128,7 +129,7 @@ namespace BlogEngine.Core.Providers
                     result = Path.Combine(Blog.CurrentInstance.StorageLocation, "datastore", "themes");
                     break;
                 default:
-                    throw new NotSupportedException($"Unknown extension type: {extensionType}");
+                    throw new NotSupportedException(string.Format("Unknown extension type: {0}", extensionType));
             }
 
             string mappedResult = HostingEnvironment.MapPath(result);
@@ -141,7 +142,7 @@ namespace BlogEngine.Core.Providers
 
             if (string.IsNullOrEmpty(mappedResult))
             {
-                throw new InvalidOperationException($"Could not map folder {result} for extension type {extensionType}");
+                throw new InvalidOperationException(string.Format("Could not map folder {0} for extension type {1}", result, extensionType));
             }
 
             return mappedResult;
@@ -159,7 +160,7 @@ namespace BlogEngine.Core.Providers
         /// </returns>
         private static string ExtensionLocation(ExtensionType extensionType, string extensionId)
         {
-            return Path.Combine(StorageLocation(extensionType), $"{extensionId}.xml");
+            return Path.Combine(StorageLocation(extensionType), string.Format("{0}.xml", extensionId));
         }
 
         #endregion

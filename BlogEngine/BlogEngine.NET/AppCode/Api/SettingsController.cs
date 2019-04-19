@@ -61,7 +61,7 @@ public class SettingsController : ApiController
         var mail = new MailMessage
         {
             From = new MailAddress(email, smtpUserName),
-            Subject = $"Test mail from {smtpUserName}",
+            Subject = string.Format("Test mail from {0}", smtpUserName),
             IsBodyHtml = true
         };
         mail.To.Add(mail.From);

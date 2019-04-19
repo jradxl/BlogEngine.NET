@@ -347,9 +347,9 @@ namespace BlogEngine.Core
         /// <returns></returns>
         private static string PrepareRoleName(string roleName)
         {
-            if (String.IsNullOrWhiteSpace(roleName))
+            if (Utils.StringIsNullOrWhitespace(roleName))
             {
-                throw new ArgumentNullException(nameof(roleName));
+                throw new ArgumentNullException("roleName");
             }
             else
             {
@@ -373,9 +373,9 @@ namespace BlogEngine.Core
         /// <returns></returns>
         public static Right GetRightByName(string rightName)
         {
-            if (String.IsNullOrWhiteSpace(rightName))
+            if (Utils.StringIsNullOrWhitespace(rightName))
             {
-                throw new ArgumentNullException(nameof(rightName));
+                throw new ArgumentNullException("rightName");
             }
             else
             {
@@ -439,7 +439,7 @@ namespace BlogEngine.Core
         {
             if (roles == null)
             {
-                throw new ArgumentNullException(nameof(roles));
+                throw new ArgumentNullException("roles");
             }
             else if (!roles.Any())
             {
@@ -473,7 +473,7 @@ namespace BlogEngine.Core
         {
             if (roles == null)
             {
-                throw new ArgumentNullException(nameof(roles));
+                throw new ArgumentNullException("roles");
             }
             else if (!roles.Any())
             {

@@ -42,7 +42,7 @@
 
             if (message == null)
             {
-                throw new ArgumentNullException(nameof(message));
+                throw new ArgumentNullException("message");
             }
 
             OnSending(message.UrlToNotifyTrackback);

@@ -49,7 +49,7 @@ namespace BlogEngine.Core.Data
             if (!Security.IsAuthorizedTo(Rights.AccessAdminPages))
                 throw new UnauthorizedAccessException();
 
-            var cf = Find("").FirstOrDefault(f => f.CustomType == type && f.ObjectId == id && f.Key == key);
+            var cf = Find("").Where(f => f.CustomType == type && f.ObjectId == id && f.Key == key).FirstOrDefault();
             return cf;
         }
 
@@ -157,10 +157,10 @@ namespace BlogEngine.Core.Data
 
         bool AlreadyExists(CustomField item)
         {
-            var field = CustomFieldsParser.CachedFields.FirstOrDefault(f => f.BlogId == item.BlogId
+            var field = CustomFieldsParser.CachedFields.Where(f => f.BlogId == item.BlogId
                     && f.CustomType == item.CustomType
                     && f.ObjectId == item.ObjectId
-                    && f.Key == item.Key);
+                    && f.Key == item.Key).FirstOrDefault();
             return field != null;
         }
 

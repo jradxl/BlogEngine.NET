@@ -2,6 +2,9 @@
 using System.Text;
 using System.Globalization;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Collections.Generic;
+using System.IO;
 
 namespace BlogEngine.Core.Web.Scripting
 {
@@ -19,9 +22,11 @@ namespace BlogEngine.Core.Web.Scripting
         {
             // global styles on top, before theme specific styles
             if(lnk.Contains("Global.css") || lnk.Contains("Styles/css"))
-                page.Header.Controls.AddAt(0, new LiteralControl($"\n<link href=\"{lnk}\" rel=\"stylesheet\" type=\"text/css\" />"));
+                page.Header.Controls.AddAt(0, new LiteralControl(
+                string.Format("\n<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />", lnk)));
             else
-                page.Header.Controls.Add(new LiteralControl($"\n<link href=\"{lnk}\" rel=\"stylesheet\" type=\"text/css\" />"));
+                page.Header.Controls.Add(new LiteralControl(
+                string.Format("\n<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />", lnk)));
         }
         /// <summary>
         /// Add generic lit to the page
@@ -33,7 +38,7 @@ namespace BlogEngine.Core.Web.Scripting
         /// <param name="href">Url</param>
         public static void AddGenericLink(System.Web.UI.Page page, string type, string relation, string title, string href)
         {
-            var tp = string.IsNullOrEmpty(type) ? "" : $"type=\"{type}\" ";
+            var tp = string.IsNullOrEmpty(type) ? "" : string.Format("type=\"{0}\" ", type);
             const string tag = "\n<link {0}rel=\"{1}\" title=\"{2}\" href=\"{3}\" />";
             page.Header.Controls.Add(new LiteralControl(string.Format(tag, tp, relation, title, href)));
         }
@@ -136,7 +141,7 @@ namespace BlogEngine.Core.Web.Scripting
             var s = sb.ToString();
             if (!string.IsNullOrEmpty(s))
             {
-                page.ClientScript.RegisterStartupScript(page.GetType(), "tracking", $"\n{s}", false);
+                page.ClientScript.RegisterStartupScript(page.GetType(), "tracking", string.Format("\n{0}", s), false);
             }
         }
 

@@ -144,8 +144,9 @@
                     </div>
                     <ul class="list-group list-group">
                         <li class="list-group-item" data-ng-repeat="n in news">
-                            <a href="{{n.OptionValue}}.aspx" target="_blank">{{n.OptionName}}</a>
-                        </li>
+							<!-- //JSR removed .aspx -->
+                            <a href="{{n.OptionValue}}" target="_blank">{{n.OptionName}}</a>
+                       </li>
                         <li id="news-spinner" class="list-group-item item-spinner">
                             <i class="fa fa-spinner fa-spin"></i>
                         </li>

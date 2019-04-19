@@ -83,7 +83,7 @@
             }
             catch (Exception ex)
             {
-                Message = $"BlogReader.Import: BlogML could not load with 2.0 specs. {ex.Message}";
+                Message = string.Format("BlogReader.Import: BlogML could not load with 2.0 specs. {0}", ex.Message);
                 Utils.Log(Message);
                 return false;
             }
@@ -98,11 +98,11 @@
 
                 LoadBlogPosts();
 
-                Message = $"Imported {PostCount} new posts";
+                Message = string.Format("Imported {0} new posts", PostCount);
             }
             catch (Exception ex)
             {
-                Message = $"BlogReader.Import: {ex.Message}";
+                Message = string.Format("BlogReader.Import: {0}", ex.Message);
                 Utils.Log(Message);
                 return false;
             }
@@ -121,7 +121,7 @@
 
             // Value might be a GUID, or it could be a simple integer.
 
-            if (!String.IsNullOrWhiteSpace(value) &&
+            if (!Utils.StringIsNullOrWhitespace(value) &&
                 value.Length == 36)
             {
                 return new Guid(value);
@@ -160,7 +160,7 @@
             DateTime defaultDate = DateTime.Now;
 
             DateTime dt = defaultDate;
-            if (!String.IsNullOrWhiteSpace(value))
+            if (!Utils.StringIsNullOrWhitespace(value))
             {
                 if (!DateTime.TryParseExact(value, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
                     dt = defaultDate;
@@ -344,7 +344,7 @@
                 if (post.PostType == BlogPostTypes.Normal)
                 {
                     BlogMLPost p = post;
-                    blogsExtended.FirstOrDefault(b => b.PostUrl == p.PostUrl).BlogPost = post;
+                    blogsExtended.Where(b => b.PostUrl == p.PostUrl).FirstOrDefault().BlogPost = post;
                 }
             }
         }
@@ -398,7 +398,7 @@
                 }
             }
             bi.ForceReload();
-            Utils.Log($"BlogReader.LoadBlogPosts: Completed importing {PostCount} posts");
+            Utils.Log(string.Format("BlogReader.LoadBlogPosts: Completed importing {0} posts", PostCount));
         }
 
         #endregion

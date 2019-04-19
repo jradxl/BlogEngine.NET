@@ -62,6 +62,7 @@
             // always set to false
             e.Authenticated = false;
 
+            //JSR
             Security.AuthenticateUser(LoginUser.UserName, LoginUser.Password, LoginUser.RememberMeSet);
         }
 

@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
     using System.Web;
 
     /// <summary>
@@ -31,14 +33,14 @@
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(node["rights"]))
+            if (!Utils.StringIsNullOrWhitespace(node["rights"]))
             {
                 // By default, all specified Rights must exist.
                 // We allow this to be overridden via the "rightsAuthorizationCheck"
                 // attribute.
 
                 AuthorizationCheck authCheck = AuthorizationCheck.HasAll;
-                if (!String.IsNullOrWhiteSpace(node["rightsAuthorizationCheck"]))
+                if (!Utils.StringIsNullOrWhitespace(node["rightsAuthorizationCheck"]))
                 {
                     authCheck = Utils.ParseEnum<AuthorizationCheck>(node["rightsAuthorizationCheck"], AuthorizationCheck.HasAll);
                 }

@@ -182,15 +182,15 @@ namespace BlogEngine.Core.Data
                 if (IsUniqueSlug(s))
                     break;
 
-                s = $"{slug}{i}";
+                s = string.Format("{0}{1}", slug, i);
             }
             return s;
         }
 
         private static bool IsUniqueSlug(string slug)
         {
-            return Page.Pages
-                .FirstOrDefault(p => p.Slug != null && p.Slug.ToLower() == slug.ToLower()) == null ? true : false;
+            return Page.Pages.Where(p => p.Slug != null && p.Slug.ToLower() == slug.ToLower())
+                .FirstOrDefault() == null ? true : false;
         }
 
         // if description not set, use first 100 chars in the post

@@ -127,7 +127,7 @@ namespace BlogEngine.Core.Compilation
             if (value == null)
             {
                 throw new InvalidOperationException(
-                    $"{SourceObjectName} field '{key}' not found.");
+                    string.Format("{0} field '{1}' not found.", this.SourceObjectName, key));
             }
 
             // If the value is being assigned to a control property we may need to convert it
@@ -141,7 +141,11 @@ namespace BlogEngine.Core.Compilation
                     if (propDesc.Converter.CanConvertFrom(value.GetType()) == false)
                     {
                         throw new InvalidOperationException(
-                            $"{SourceObjectName} value '{key}' cannot be converted to type {propDesc.PropertyType}.");
+                            string.Format(
+                                "{0} value '{1}' cannot be converted to type {2}.",
+                                this.SourceObjectName,
+                                key,
+                                propDesc.PropertyType));
                     }
 
                     return propDesc.Converter.ConvertFrom(value);

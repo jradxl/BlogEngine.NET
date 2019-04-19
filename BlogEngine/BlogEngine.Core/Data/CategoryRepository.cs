@@ -42,7 +42,7 @@ namespace BlogEngine.Core.Data
             // add categories without posts
             foreach (var c in Category.Categories)
             {
-                var x = items.FirstOrDefault(i => i.Id == c.Id);
+                var x = items.Where(i => i.Id == c.Id).FirstOrDefault();
                 if (x == null)
                     items.Add(new CategoryItem { Id = c.Id, Parent = OptionById(c.Parent), Title = c.Title, Description = c.Description, Count = 0 });
             }
@@ -87,11 +87,11 @@ namespace BlogEngine.Core.Data
             // add categories without posts
             foreach (var c in Category.Categories)
             {
-                var x = items.FirstOrDefault(i => i.Id == c.Id);
+                var x = items.Where(i => i.Id == c.Id).FirstOrDefault();
                 if (x == null)
                     items.Add(new CategoryItem { Id = c.Id, Parent = OptionById(c.Parent), Title = c.Title, Description = c.Description, Count = 0 });
             }
-            return items.FirstOrDefault(c => c.Id == id);
+            return items.Where(c => c.Id == id).FirstOrDefault();
         }
         /// <summary>
         /// Add new item
@@ -115,7 +115,7 @@ namespace BlogEngine.Core.Data
             }
             catch (Exception ex)
             {
-                Utils.Log($"CategoryRepository.Add: {ex.Message}");
+                Utils.Log(string.Format("CategoryRepository.Add: {0}", ex.Message));
                 return null;
             }
         }
@@ -172,7 +172,7 @@ namespace BlogEngine.Core.Data
             }
             catch (Exception ex)
             {
-                Utils.Log($"CategoryRepository.Remove: {ex.Message}");
+                Utils.Log(string.Format("CategoryRepository.Remove: {0}", ex.Message));
                 return false;
             }
         }

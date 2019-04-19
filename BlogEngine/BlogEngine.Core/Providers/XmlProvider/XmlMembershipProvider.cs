@@ -10,6 +10,7 @@
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Security;
+    using System.Web.Configuration;
     using System.Xml;
     using System.IO;
 
@@ -537,7 +538,7 @@
         {
             if (providerUserKey == null)
             {
-                throw new ArgumentNullException(nameof(providerUserKey));
+                throw new ArgumentNullException("providerUserKey");
             }
 
             var doc = new XmlDocument();
@@ -565,7 +566,7 @@
         {
             if (email == null)
             {
-                throw new ArgumentNullException(nameof(email));
+                throw new ArgumentNullException("email");
             }
 
             var doc = new XmlDocument();
@@ -594,7 +595,7 @@
         {
             if (config == null)
             {
-                throw new ArgumentNullException(nameof(config));
+                throw new ArgumentNullException("config");
             }
 
             if (string.IsNullOrEmpty(name))
@@ -657,7 +658,7 @@
                 var attr = config.GetKey(0);
                 if (!string.IsNullOrEmpty(attr))
                 {
-                    throw new ProviderException($"Unrecognized attribute: {attr}");
+                    throw new ProviderException(string.Format("Unrecognized attribute: {0}", attr));
                 }
             }
         }
@@ -851,7 +852,7 @@
 
                         if (!File.Exists(path))
                         {
-                            Utils.Log($"XmlMembershipProvider: can not read users from file \"{path}\"");
+                            Utils.Log(string.Format("XmlMembershipProvider: can not read users from file \"{0}\"", path));
                         }
 
                         ReadFromFile(path, b.Id);

@@ -12,6 +12,7 @@
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Security;
+    using System.Web.Configuration;
     using System.Xml;
 
 
@@ -272,7 +273,7 @@
         {
             if (config == null)
             {
-                throw new ArgumentNullException(nameof(config));
+                throw new ArgumentNullException("config");
             }
 
             if (string.IsNullOrEmpty(name))
@@ -327,7 +328,7 @@
                 var attr = config.GetKey(0);
                 if (!string.IsNullOrEmpty(attr))
                 {
-                    throw new ProviderException($"Unrecognized attribute: {attr}");
+                    throw new ProviderException(string.Format("Unrecognized attribute: {0}", attr));
                 }
             }
         }
@@ -411,9 +412,9 @@
         /// </param>
         public override bool RoleExists(string roleName)
         {
-            if (String.IsNullOrWhiteSpace(roleName))
+            if (Utils.StringIsNullOrWhitespace(roleName))
             {
-                throw new ArgumentNullException(nameof(roleName));
+                throw new ArgumentNullException("roleName");
             }
             else
             {

@@ -34,8 +34,8 @@ namespace BlogEngine.Core.Data.Services
             {
                 var link = string.Format(
                     Link,
-                    $"{Utils.AbsoluteWebRoot}?tag={HttpUtility.UrlEncode(key)}",
-                    WeightedList[key], $"Tag: {key}", key);
+                    string.Format("{0}?tag={1}", Utils.AbsoluteWebRoot, HttpUtility.UrlEncode(key)),
+                    WeightedList[key], string.Format("Tag: {0}", key), key);
                 links.Add(link);  
             }
             return links;

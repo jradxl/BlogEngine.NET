@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Security;
+using System.Diagnostics;
 using System.Security;
+using System.Security.Principal;
 
 namespace BlogEngine.Core
 {
@@ -168,7 +173,7 @@ namespace BlogEngine.Core
                         DateTime.Now,
                         expirationDate,
                         rememberMe,
-                        $"{SecurityValidationKey}{AUTH_TKT_USERDATA_DELIMITER}{Blog.CurrentInstance.Id}",
+                        string.Format("{0}{1}{2}", SecurityValidationKey, AUTH_TKT_USERDATA_DELIMITER, Blog.CurrentInstance.Id),
                         FormsAuthentication.FormsCookiePath
                     );
 
@@ -190,6 +195,8 @@ namespace BlogEngine.Core
 
                     if (!string.IsNullOrWhiteSpace(returnUrl))
                     {
+						//JSR
+						//var ret =  returnUrl + "/index";
                         context.Response.Redirect(returnUrl);
                     }
                     else
@@ -366,7 +373,7 @@ namespace BlogEngine.Core
         /// <returns></returns>
         public static bool IsAuthorizedTo(AuthorizationCheck authCheck, IEnumerable<Rights> rights)
         {
-            if (!rights.Any())
+            if (rights.Count() == 0)
             {
                 // Always return false for this. If there's a mistake where authorization
                 // is being checked for on an empty collection, we don't want to return 

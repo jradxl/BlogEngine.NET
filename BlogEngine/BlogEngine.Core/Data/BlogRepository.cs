@@ -2,6 +2,7 @@
 using BlogEngine.Core.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Web.Hosting;
@@ -51,7 +52,7 @@ namespace BlogEngine.Core.Data
             if (!(Blog.CurrentInstance.IsPrimary && Security.IsAdministrator))
                 throw new UnauthorizedAccessException();
 
-            var blog = Blog.Blogs.FirstOrDefault(b => b.Id == id);
+            var blog = Blog.Blogs.Where(b => b.Id == id).FirstOrDefault();
             return ToJson(blog);
         }
 
@@ -91,7 +92,7 @@ namespace BlogEngine.Core.Data
                 throw new UnauthorizedAccessException();
             try
             {
-                var coreBlog = Blog.Blogs.FirstOrDefault(b => b.Id == blog.Id);
+                var coreBlog = Blog.Blogs.Where(b => b.Id == blog.Id).FirstOrDefault();
                 return Save(coreBlog, blog);
             }
             catch (Exception)
@@ -112,7 +113,7 @@ namespace BlogEngine.Core.Data
                 throw new UnauthorizedAccessException();
             try
             {
-                var blog = Blog.Blogs.FirstOrDefault(b => b.Id == id);
+                var blog = Blog.Blogs.Where(b => b.Id == id).FirstOrDefault();
                 blog.Delete();
                 blog.Save();
                 return true;

@@ -38,7 +38,7 @@ namespace BlogEngine.Core
         {
             if (filePath == null)
             {
-                throw new ArgumentNullException(nameof(filePath));
+                throw new ArgumentNullException("filePath");
             }
 
             this.url = filePath;

@@ -10,6 +10,7 @@
     <%} %>
 
     <div id="commentlist" style="display: block">
+      <!-- CommentsList-->
       <asp:PlaceHolder runat="server" ID="phComments" />      
     </div>
 </div>

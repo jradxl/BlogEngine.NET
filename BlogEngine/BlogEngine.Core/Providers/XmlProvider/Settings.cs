@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Specialized;
     using System.Web;
+    using System.Web.Configuration;
     using System.Xml;
 
     /// <summary>
@@ -22,7 +23,7 @@
         /// <returns>A StringDictionary.</returns>
         public override StringDictionary LoadSettings(Blog blog)
         {
-            var filename = HttpContext.Current.Server.MapPath($"{blog.StorageLocation}settings.xml");               
+            var filename = HttpContext.Current.Server.MapPath(string.Format("{0}settings.xml", blog.StorageLocation));               
             var dic = new StringDictionary();
 
             var doc = new XmlDocument();
@@ -53,10 +54,10 @@
         {
             if (settings == null)
             {
-                throw new ArgumentNullException(nameof(settings));
+                throw new ArgumentNullException("settings");
             }
 
-            var filename = $"{Folder}settings.xml";
+            var filename = string.Format("{0}settings.xml", this.Folder);
             var writerSettings = new XmlWriterSettings { Indent = true };
 
             // ------------------------------------------------------------

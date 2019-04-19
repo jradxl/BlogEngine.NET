@@ -26,7 +26,7 @@
         {
             if (item == null)
             {
-                throw new ArgumentNullException(nameof(item));
+                throw new ArgumentNullException("item");
             }
 
             this.Title = item.Title;

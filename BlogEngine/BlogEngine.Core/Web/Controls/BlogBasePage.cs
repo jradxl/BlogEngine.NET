@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace BlogEngine.Core.Web.Controls
+﻿namespace BlogEngine.Core.Web.Controls
 {
     using System;
     using System.Web;
@@ -78,7 +76,9 @@ namespace BlogEngine.Core.Web.Controls
             var meta = new HtmlMeta
                 {
                     HttpEquiv = "content-type",
-                    Content = $"{Response.ContentType}; charset={Response.ContentEncoding.HeaderName}"
+                    Content =
+                        string.Format(
+                            "{0}; charset={1}", Response.ContentType, Response.ContentEncoding.HeaderName)
                 };
             Page.Header.Controls.AddAt(0, meta);
         }
@@ -123,7 +123,7 @@ namespace BlogEngine.Core.Web.Controls
             if (exception != null && exception.Message.Contains("site.master"))
             {
                 ctx.Server.ClearError();
-                this.MasterPageFile = $"{Utils.ApplicationRelativeWebRoot}Custom/Themes/RazorHost/site.master";
+                this.MasterPageFile = string.Format("{0}Custom/Themes/RazorHost/site.master", Utils.ApplicationRelativeWebRoot);
                 base.OnInit(EventArgs.Empty);
             }
 
@@ -149,17 +149,17 @@ namespace BlogEngine.Core.Web.Controls
 
                 AddDefaultLanguages();
 
-                header.AddLink("", "contents", "Archive", $"{relativeWebRoot}archive{BlogConfig.FileExtension}");
+                header.AddLink("", "contents", "Archive", string.Format("{0}archive{1}", relativeWebRoot, BlogConfig.FileExtension));
                 header.AddLink("", "start", instanceName, relativeWebRoot);
-                header.AddLink("application/rsd+xml", "edituri", "RSD", $"{absoluteWebRoot}rsd.axd");
-                header.AddLink("application/rdf+xml", "meta", "SIOC", $"{absoluteWebRoot}sioc.axd");
-                header.AddLink("application/apml+xml", "meta", "APML", $"{absoluteWebRoot}apml.axd");
-                header.AddLink("application/rdf+xml", "meta", "FOAF", $"{absoluteWebRoot}foaf.axd");
+                header.AddLink("application/rsd+xml", "edituri", "RSD", string.Format("{0}rsd.axd", absoluteWebRoot));
+                header.AddLink("application/rdf+xml", "meta", "SIOC", string.Format("{0}sioc.axd", absoluteWebRoot));
+                header.AddLink("application/apml+xml", "meta", "APML", string.Format("{0}apml.axd", absoluteWebRoot));
+                header.AddLink("application/rdf+xml", "meta", "FOAF", string.Format("{0}foaf.axd", absoluteWebRoot));
 
                 if (string.IsNullOrEmpty(BlogSettings.Instance.AlternateFeedUrl))
                 {
-                    header.AddLink("application/rss+xml", "alternate", $"{instanceName} (RSS)", $"{Utils.FeedUrl}");
-                    header.AddLink("application/atom+xml", "alternate", $"{instanceName} (ATOM)", $"{Utils.FeedUrl}?format=atom");
+                    header.AddLink("application/rss+xml", "alternate", string.Format("{0} (RSS)", instanceName), string.Format("{0}", Utils.FeedUrl));
+                    header.AddLink("application/atom+xml", "alternate", string.Format("{0} (ATOM)", instanceName), string.Format("{0}?format=atom", Utils.FeedUrl));
                 }
                 else
                 {
@@ -167,7 +167,7 @@ namespace BlogEngine.Core.Web.Controls
                 }
                 if (BlogSettings.Instance.EnableOpenSearch)
                 {
-                    header.AddLink("application/opensearchdescription+xml", "search", instanceName, $"{absoluteWebRoot}opensearch.axd");
+                    header.AddLink("application/opensearchdescription+xml", "search", instanceName, string.Format("{0}opensearch.axd", absoluteWebRoot));
                 }
                 header.Render(this);
 
@@ -204,7 +204,7 @@ namespace BlogEngine.Core.Web.Controls
                 allowViewing = true;
 
             if (!allowViewing)
-                Response.Redirect($"{Utils.RelativeWebRoot}Account/login.aspx");
+                Response.Redirect(string.Format("{0}Account/login.aspx", Utils.RelativeWebRoot));
 
             MasterPageFile = GetSiteMaster();
 
@@ -234,7 +234,7 @@ namespace BlogEngine.Core.Web.Controls
             base.OnPreRenderComplete(e);
             if (BlogSettings.Instance.UseBlogNameInPageTitles)
             {
-                Page.Title = $"{BlogSettings.Instance.Name} | {Page.Title}";
+                Page.Title = string.Format("{0} | {1}", BlogSettings.Instance.Name, Page.Title);
             }
         }
 
@@ -258,39 +258,35 @@ namespace BlogEngine.Core.Web.Controls
         /// <returns>Path to the master page</returns>
         string GetSiteMaster()
         {
-            if(FilePathContains("post.aspx"))
+            if (Request.FilePath.Contains("post.aspx", StringComparison.InvariantCultureIgnoreCase))
             {
-                string path = $"{Utils.ApplicationRelativeWebRoot}Custom/Themes/{BlogSettings.Instance.Theme}/post.master";
-                if (File.Exists(Server.MapPath(path)))
+                string path = string.Format("{0}Custom/Themes/{1}/post.master", Utils.ApplicationRelativeWebRoot, BlogSettings.Instance.Theme);
+                if (System.IO.File.Exists(Server.MapPath(path)))
                     return path;
             }
 
             // if page.master exists, use it for all common pages
             // and site.master only for post list
-            if (PageMasterExists)
+            if (Request.FilePath.Contains("page.aspx", StringComparison.InvariantCultureIgnoreCase) ||
+                Request.FilePath.Contains("archive.aspx", StringComparison.InvariantCultureIgnoreCase) ||
+                Request.FilePath.Contains("contact.aspx", StringComparison.InvariantCultureIgnoreCase) ||
+                Request.FilePath.Contains("error.aspx", StringComparison.InvariantCultureIgnoreCase) ||
+                Request.FilePath.Contains("error404.aspx", StringComparison.InvariantCultureIgnoreCase) ||
+                Request.FilePath.Contains("search.aspx", StringComparison.InvariantCultureIgnoreCase))
             {
-                string path = $"{Utils.ApplicationRelativeWebRoot}Custom/Themes/{BlogSettings.Instance.Theme}/page.master";
-                if (File.Exists(Server.MapPath(path)))
+                string path = string.Format("{0}Custom/Themes/{1}/page.master", Utils.ApplicationRelativeWebRoot, BlogSettings.Instance.Theme);
+                if (System.IO.File.Exists(Server.MapPath(path)))
                     return path;
             }
 
-            var siteMaster = $"{Utils.ApplicationRelativeWebRoot}Custom/Themes/{BlogSettings.Instance.GetThemeWithAdjustments(null)}/site.master";
+            var siteMaster = string.Format("{0}Custom/Themes/{1}/site.master", Utils.ApplicationRelativeWebRoot, 
+                                            BlogSettings.Instance.GetThemeWithAdjustments(null));
 
-            return File.Exists(Server.MapPath(siteMaster))
-                ? siteMaster
-                : $"{Utils.ApplicationRelativeWebRoot}Custom/Themes/Standard/site.master";
-        }
+            if (System.IO.File.Exists(Server.MapPath(siteMaster)))
+                return siteMaster;
+            else
+                return string.Format("{0}Custom/Themes/Standard/site.master", Utils.ApplicationRelativeWebRoot);
 
-        private bool PageMasterExists => FilePathContains("page.aspx") ||
-                                FilePathContains("archive.aspx") ||
-                                FilePathContains("contact.aspx") ||
-                                FilePathContains("error.aspx") ||
-                                FilePathContains("error404.aspx") ||
-                                FilePathContains("search.aspx");
-
-        private bool FilePathContains(string path)
-        {
-            return Request.FilePath.Contains(path, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

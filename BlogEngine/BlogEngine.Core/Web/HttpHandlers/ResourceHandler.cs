@@ -8,6 +8,7 @@ namespace BlogEngine.Core.Web.HttpHandlers
     using System.Web;
     using System.Web.Caching;
     using HttpModules;
+    using System.Linq;
 
     /// <summary>
     /// Removes whitespace in all stylesheets added to the 
@@ -159,7 +160,7 @@ namespace BlogEngine.Core.Web.HttpHandlers
         /// <returns></returns>
         public static string GetScriptPath(System.Globalization.CultureInfo cultureInfo)
         {
-            return $"{Utils.RelativeWebRoot}{cultureInfo.Name.ToLowerInvariant()}.res.axd";
+            return String.Format("{0}{1}.res.axd", Utils.RelativeWebRoot, cultureInfo.Name.ToLowerInvariant());
         }
 
         /// <summary>
@@ -183,7 +184,7 @@ namespace BlogEngine.Core.Web.HttpHandlers
             cache.SetMaxAge(new TimeSpan(30, 0, 0, 0));
             cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
 
-            var etag = $"\"{hash}\"";
+            var etag = string.Format("\"{0}\"", hash);
             var incomingEtag = context.Request.Headers["If-None-Match"];
 
             cache.SetETag(etag);

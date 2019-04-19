@@ -32,7 +32,7 @@ namespace BlogEngine.Core.Web
         {
             if (cultureInfo == null)
             {
-                throw new ArgumentNullException(nameof(cultureInfo));
+                throw new ArgumentNullException("cultureInfo");
             }
             this.cultureInfo = cultureInfo;
 
