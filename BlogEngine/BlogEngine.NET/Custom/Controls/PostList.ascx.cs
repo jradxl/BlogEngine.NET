@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Web.UI;
-
     using BlogEngine.Core;
     using BlogEngine.Core.Web.Controls;
 
@@ -122,11 +121,17 @@
                 return;
             }
 
-            var path = string.Format("{0}Custom/Themes/{1}/PostView.ascx", Utils.ApplicationRelativeWebRoot, BlogSettings.Instance.GetThemeWithAdjustments(this.Request.QueryString["theme"]));
+            //Change 3.3.7
+            var theme = Request.QueryString["theme"];
+            if(!string.IsNullOrEmpty(theme))
+                theme = theme.Replace(".", "").Replace("/", "").Replace("\\", "");
+
+            var path = string.Format("{0}Custom/Themes/{1}/PostView.ascx", Utils.ApplicationRelativeWebRoot, BlogSettings.Instance.GetThemeWithAdjustments(theme));
             var counter = 0;
 
             if(!System.IO.File.Exists(Server.MapPath(path)))
                 path = string.Format("{0}Custom/Controls/Defaults/PostView.ascx", Utils.ApplicationRelativeWebRoot);
+            //Change 3.3.7 end
 
             foreach (Post post in visiblePosts.GetRange(index, stop))
             {
